@@ -1,0 +1,17 @@
+.project
+.classpath
+.settings/
+.groovy/
+.svn/
+
+bin/
+target/
+log/
+
+release.properties
+pom.xml.*
+*.class
+
+# Package Files #
+*.war
+*.ear
