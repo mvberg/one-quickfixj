@@ -953,6 +953,12 @@
 			<field name="DiscretionOffset" required="N" />
 			<field name="ClearingFirm" required="N" />
 			<field name="ClearingAccount" required="N" />
+			<!--custom pats -->
+			<field name='DisplayMethod' required='N'/>
+			<field name='DisplayLowQty' required='N'/>
+			<field name='DisplayHighQty' required='N'/>
+			<field name='DisplayQty' required='N'/>
+			<field name="ClRefID" required="N"/>
 		</message>
 		<message name="ExecutionReport" msgtype="8" msgcat="app">
 			<field name="OrderID" required="Y" />
@@ -1052,6 +1058,19 @@
 			<field name="ClearingFirm" required="N" />
 			<field name="ClearingAccount" required="N" />
 			<field name="MultiLegReportingType" required="N" />
+			<!--custom pats -->
+			<field name='RawLastPx' required='N'/>
+			<field name='LocalTransactTime' required='N'/>
+			<field name='ClRefID' required='N'/>
+			<field name='PatsLegNo' required='N'/>
+			<field name='ESAReference' required='N'/>
+			<field name='BatchID' required='N'/>
+			<field name='BatchType' required='N'/>
+			<field name='DisplayMethod' required='N'/>
+			<field name='DisplayLowQty' required='N'/>
+			<field name='DisplayHighQty' required='N'/>
+			<field name='DisplayQty' required='N'/>
+			<field name='PatsAPIM' required='N'/>
 		</message>
 		<message name="DontKnowTrade" msgtype="Q" msgcat="app">
 			<field name="OrderID" required="Y" />
@@ -1161,6 +1180,10 @@
 			<field name="LocateReqd" required="N" />
 			<field name="ClearingFirm" required="N" />
 			<field name="ClearingAccount" required="N" />
+			<!--custom pats-->
+			<field name="ClRefID" required="N"/>
+			<field name='BrokerDeskSettings' required='N'/>
+	
 		</message>
 		<message name="OrderCancelRequest" msgtype="F" msgcat="app">
 			<field name="OrigClOrdID" required="Y" />
@@ -1215,6 +1238,9 @@
 			<field name="Text" required="N" />
 			<field name="EncodedTextLen" required="N" />
 			<field name="EncodedText" required="N" />
+			<!--custom pats-->
+			<field name="ClRefID" required="N"/>
+			<field name='LocalTransactTime' required='N'/>
 		</message>
 		<message name="OrderStatusRequest" msgtype="H" msgcat="app">
 			<field name="OrderID" required="N" />
@@ -1717,6 +1743,8 @@
 			<field name="Designation" required="N" />
 			<field name="MultiLegRptTypeReq" required="N" />
 			<field name="NetMoney" required="N" />
+			<!--custom pats-->
+			<field name="ClRefID" required="N"/>
 		</message>
 		<message name="MultilegOrderCancelReplaceRequest" msgtype="AC"
 			msgcat="app">
@@ -1803,6 +1831,10 @@
 			<field name="Designation" required="N" />
 			<field name="MultiLegRptTypeReq" required="N" />
 			<field name="NetMoney" required="N" />
+			<!--custom pats-->
+			<field name="ClRefID" required="N"/>
+			<field name="RawPrice" required="N" />
+			<field name="RawStopPx" required="N" />
 		</message>
 	</messages>
 
@@ -1844,6 +1876,8 @@
 			<field name="SecurityDesc" required="N" />
 			<field name="EncodedSecurityDescLen" required="N" />
 			<field name="EncodedSecurityDesc" required="N" />
+			<field name="PatsTickSize" required="N" />
+			<field name="PatsTickBandNoDecPlaces" required="N" />
 		</component>
 		<component name="InstrumentLeg">
 			<field name="LegSymbol" required="Y" />
@@ -1892,6 +1926,13 @@
 				<field name="PartyRole" required="N" />
 				<field name="PartySubID" required="N" />
 			</group>
+		</component>
+		<!--custom pats-->
+		<component name="PatsOrderDetails">
+			<field name="PatsAPIM" required="N" />
+			<field name="PatsAPIMUser" required="N" />
+			<field name="PatsICSNearLeg" required="N" />
+			<field name="PatsICSFarLeg" required="N" />
 		</component>
 		<component name="NestedParties">
 			<group name="NoNestedPartyIDs" required="N">
@@ -3238,5 +3279,39 @@
 		<field number="494" name="Designation" type="STRING" />
 		<field number="563" name="MultiLegRptTypeReq" type="INT" />
 		<field number="586" name="OrigOrdModTime" type="UTCTIMESTAMP" />
+		
+		<!-- custom pats fields -->
+		
+		<field number="1084" name="DisplayMethod" type="INT" />
+		<field number="1085" name="DisplayLowQty" type="QTY"/>      
+		<field number="1086" name="DisplayHighQty" type="QTY"/>      
+		<field number="1138" name="DisplayQty" type="QTY"/>      
+	  
+		<field number="5023" name="PatsTickSize" type="STRING" />
+		<field number="5071" name="PatsTickBandNoDecPlaces" type="INT" />
+	  
+		<field number="6209" name="ClRefID" type="STRING" />
+		<field number="6210" name="RawPrice" type="STRING" />
+		<field number="6211" name="RawStopPx" type="STRING" />
+		<field number="6212" name="RawLegPrice" type="STRING" />
+		<field number="6213" name="RawLastPx" type="STRING" />
+		<field number="6214" name="ESAReference" type="STRING" />
+	  
+		<field number="6218" name="PatsAPIM" type="CHAR">
+			<value enum="A" description="AUTOMATED_ORDERS"/>
+			<value enum="M" description="MANUAL_ORDERS"/>
+		</field>
+		
+		<field number="6219" name="PatsAPIMUser" type="STRING" />
+		<field number="6220" name="PatsICSNearLeg" type="STRING" />
+		<field number="6221" name="PatsICSFarLeg" type="STRING" />
+		
+		<field number="6222" name="PartyOrderID" type="STRING" />
+		<field number="7000" name="BatchID" type="STRING" />
+		<field number="7001" name="BatchType" type="STRING" />
+		<field number="9729" name="PatsLegNo" type="INT" />
+		<field number="10000" name="BrokerDeskSettings" type="STRING" />
+		<field number="10044" name="LocalTransactTime" type="LOCALMKTDATE" />
+	  
 	</fields>
 </fix>
